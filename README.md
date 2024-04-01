@@ -1,13 +1,21 @@
 <div align="center">
 
-<h1>Template | Worker</h1>
+<h1>Sunbird NLLB Translate Inference Server</h1>
 
-[![CI | Test Handler](https://github.com/runpod-workers/worker-template/actions/workflows/CI-test_handler.yml/badge.svg)](https://github.com/runpod-workers/worker-template/actions/workflows/CI-test_handler.yml)
-&nbsp;
-[![CD | Build-Test-Release](https://github.com/runpod-workers/worker-template/actions/workflows/build-test-release.yml/badge.svg)](https://github.com/runpod-workers/worker-template/actions/workflows/build-test-release.yml)
-
-🚀 | A simple worker that can be used as a starting point to build your own custom RunPod Endpoint API worker.
+A Sunbird NLLB Translate Inference Server running on the RunPod Endpoint API worker. See the notebook for the nllb translation [here](https://colab.research.google.com/drive/1FYVJHLI-OrLTUnQ3dj4TmXWv9bqqff_F#scrollTo=4PsL3JUorizH) and for model training [here](https://colab.research.google.com/drive/1JPsdj7fK0ZSRPZRGozsudhFaGV4C7dXg#scrollTo=fM22URX1IrV_).
 </div>
+
+Some of the steps below are optional as you can just build and push the nllb translate image to docker hub by running the commands below.
+
+```sh
+chmod u+x bin/*
+./bin/build
+./bin/push
+```
+
+The image repository will be used to build the Runpod Endpoint for the Nllb Translate Inference Server.
+
+Refer to the Runpod [documentation](https://docs.runpod.io/serverless/workers/get-started) on how to get started with building serverless runpod enpoint api worker.
 
 ## 📖 | Getting Started
 
@@ -57,7 +65,9 @@ The `CI-test_worker.yml` file will test the worker using the input provided by t
 ```json
 {
     "input": {
-        "name": "John Doe"
+        "source_language": "lug",
+        "target_language": "eng",
+        "text": "Kifunzibwa n’ekigambo kimu kyokka - muntu.",
     }
 }
 ```

@@ -6,9 +6,16 @@
       }
     },
     "input": {
-      "name": "Dolly"
+      "source_language": "eng",
+      "target_language": "lug",
+      "text": "How are you?"
     },
-    "expectedOutput": "Hello, Dolly!"
+    "expectedOutput": {
+      "data": {
+        "text": "How are you?",
+        "translated_text": "Oli otya?"
+      }
+    }
   },
   {
     "hardwareConfig": {
@@ -17,7 +24,9 @@
       }
     },
     "input": {
-      "name": "DALL-E"
+      "source_language": "lug",
+      "target_language": "eng",
+      "text": "Biki by'oyagala okukola?"
     }
   }
 ]
