@@ -17,6 +17,8 @@ The image repository will be used to build the Runpod Endpoint for the Nllb Tran
 
 Refer to the Runpod [documentation](https://docs.runpod.io/serverless/workers/get-started) on how to get started with building serverless runpod enpoint api worker.
 
+Used the [**Runpod Worker Template**](https://github.com/SunbirdAI/sunbird-runpod-worker-template) for the stepup and workflow actions.
+
 ## 📖 | Getting Started
 
 1. Clone this repository.
