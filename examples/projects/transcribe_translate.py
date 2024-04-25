@@ -43,26 +43,27 @@ def process_directory(directory, output_file, base_url, auth_token):
                 endpoint="stt", audio_path=os.path.join(root, file), language=language
             )
 
-            # Translate transcription to English
-            logger.info(f"Translating transcription of audio file: {file}")
-            translation = ai_tasks.translate(
-                endpoint="nllb_translate",
-                source_language=language,
-                target_language="eng",
-                text=transcription,
-            )
-            # Add results to DataFrame
-            df = df._append(
-                pd.DataFrame.from_dict(
-                    {
-                        "filename": [file],
-                        "language": [language],
-                        "transcription": [transcription],
-                        "translation": [translation],
-                    }
-                ),
-                ignore_index=True,
-            )
+            if transcription is not None:
+                # Translate transcription to English
+                logger.info(f"Translating transcription of audio file: {file}")
+                translation = ai_tasks.translate(
+                    endpoint="nllb_translate",
+                    source_language=language,
+                    target_language="eng",
+                    text=transcription,
+                )
+                # Add results to DataFrame
+                df = df._append(
+                    pd.DataFrame.from_dict(
+                        {
+                            "filename": [file],
+                            "language": [language],
+                            "transcription": [transcription],
+                            "translation": [translation],
+                        }
+                    ),
+                    ignore_index=True,
+                )
 
     # Export DataFrame to CSV
     df.to_csv(output_file, index=False)

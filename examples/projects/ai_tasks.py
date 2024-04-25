@@ -2,10 +2,17 @@ import os
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
+import logging
 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging
 
 sess = requests.session()
 
@@ -55,16 +62,14 @@ class AITasks:
             "adapter": language,
         }
 
-        response = sess.post(url, headers=headers, files=files, data=data)
-        # print(response.content)
         try:
+            response = sess.post(url, headers=headers, files=files, data=data)
+            # print(response.content)
             return response.json()["audio_transcription"]
-        except Exception:
+        except Exception as e:
             # For big transcriptions
-            transcription = ""
-            for chunk in response.iter_content(chunk_size=1024):
-                transcription += chunk.decode("utf-8")
-            return transcription
+            logger.error(f"{str(e)}: Transcription skipped")
+            return None
 
     def translate(self, endpoint, source_language, target_language, text):
         """
