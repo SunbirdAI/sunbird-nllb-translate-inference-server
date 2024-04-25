@@ -52,11 +52,8 @@ def handler(job):
     text_to_translate = job_input.get("text")
 
     translated_text = translate(text_to_translate, source_language, target_language)
-    
-    resp = {
-        "text": text_to_translate,
-        "translated_text": translated_text
-    }
+
+    resp = {"text": text_to_translate, "translated_text": translated_text}
 
     return make_response(response=resp)
 
