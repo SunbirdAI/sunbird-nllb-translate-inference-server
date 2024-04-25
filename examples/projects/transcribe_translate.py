@@ -2,9 +2,16 @@ import os
 import sys
 import argparse
 import pandas as pd
+import logging
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(current_directory)
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging
 
 from ai_tasks import AITasks
 
@@ -31,11 +38,13 @@ def process_directory(directory, output_file, base_url, auth_token):
             # Extract language from directory name
             language = os.path.basename(root)
             # Transcribe audio file
+            logger.info(f"Transcribing audio file: {file}")
             transcription = ai_tasks.transcribe(
                 endpoint="stt", audio_path=os.path.join(root, file), language=language
             )
 
             # Translate transcription to English
+            logger.info(f"Translating transcription of audio file: {file}")
             translation = ai_tasks.translate(
                 endpoint="nllb_translate",
                 source_language=language,
@@ -57,7 +66,7 @@ def process_directory(directory, output_file, base_url, auth_token):
 
     # Export DataFrame to CSV
     df.to_csv(output_file, index=False)
-    print(f"Results saved to '{output_file}'")
+    logger.info(f"Results saved to '{output_file}'")
 
 
 def main():

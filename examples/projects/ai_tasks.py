@@ -1,9 +1,19 @@
 import os
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+sess = requests.session()
+
+retries = Retry(
+    total=5, backoff_factor=1, status_forcelist=[400, 429, 500, 502, 503, 504]
+)
+
+sess.mount("https://", HTTPAdapter(max_retries=retries))
 
 
 class AITasks:
@@ -45,8 +55,16 @@ class AITasks:
             "adapter": language,
         }
 
-        response = requests.post(url, headers=headers, files=files, data=data)
-        return response.json()["audio_transcription"]
+        response = sess.post(url, headers=headers, files=files, data=data)
+        # print(response.content)
+        try:
+            return response.json()["audio_transcription"]
+        except Exception:
+            # For big transcriptions
+            transcription = ""
+            for chunk in response.iter_content(chunk_size=1024):
+                transcription += chunk.decode("utf-8")
+            return transcription
 
     def translate(self, endpoint, source_language, target_language, text):
         """
@@ -73,7 +91,7 @@ class AITasks:
             "text": text,
         }
 
-        response = requests.post(url, headers=headers, json=data)
+        response = sess.post(url, headers=headers, json=data)
         return response.json()["output"]["data"]["translated_text"]
 
 
@@ -88,7 +106,7 @@ if __name__ == "__main__":
 
     # Transcribe audio
     transcription = ai_tasks.transcribe(
-        endpoint="stt", audio_path="./languages/ach/MEGA 12.1.mp3", language="ach"
+        endpoint="stt", audio_path="./trac_fm/ach/MEGA 12.1.mp3", language="ach"
     )
     print(f"Transcription: {transcription}")
 
