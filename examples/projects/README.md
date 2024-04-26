@@ -80,7 +80,7 @@ Suppose you have a directory named `trac_fm` containing audio files in different
 
    ```sh
    chmod u+x transcribe_translate.sh
-   AUTH_Tken=your_auth_token_here
+   AUTH_TOKEN=your_auth_token_here
    ./transcribe_translate.sh trac_fm trac_fm_output.csv $AUTH_TOKEN
    ```
 
