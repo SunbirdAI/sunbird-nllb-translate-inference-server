@@ -138,6 +138,13 @@ cd repo-name
 docker build --platform linux/amd64 --tag <username>/<repo>:<tag> .
 ```
 
+For the next step, when need to be logged in into the dockerhub account. Run the command below and follow the prompts
+to login into the docker hub account
+
+```sh
+docker login
+```
+
 4. Push your container registry:
 
 ```sh
