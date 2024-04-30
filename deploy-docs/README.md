@@ -144,7 +144,7 @@ docker build --platform linux/amd64 --tag <username>/<repo>:<tag> .
 docker push <username>/<repo>:<tag>
 ```
 
-See the [build](./bin/build) and [push](./bin/push) scipts in the [bin](./bin)
+See the [build](../bin/build) and [push](../bin/push) scipts in the [bin](../bin)
 
 You can just build and push the image to docker hub by running the commands below.
 
