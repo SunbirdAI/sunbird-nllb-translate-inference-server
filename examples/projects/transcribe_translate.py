@@ -80,7 +80,7 @@ def main():
     parser.add_argument("output_file", help="Path to the output CSV file.")
     parser.add_argument(
         "--base_url",
-        default="https://api.sunbird.ai",
+        default="https://api.sunbird.ai/tasks",
         help="Base URL of the API.",
     )
     parser.add_argument(
