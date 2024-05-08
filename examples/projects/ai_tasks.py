@@ -105,7 +105,7 @@ if __name__ == "__main__":
     # Initialize AITasks object
     token = os.getenv("AUTH_TOKEN")
     ai_tasks = AITasks(
-        base_url="https://sunbird-ai-api-5bq6okiwgq-ew.a.run.app/tasks",
+        base_url="https://api.sunbird.ai/tasks",
         auth_token=token,
     )
 

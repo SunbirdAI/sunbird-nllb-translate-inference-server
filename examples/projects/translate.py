@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-url = "https://sunbird-ai-api-5bq6okiwgq-ew.a.run.app/tasks/nllb_translate"
+url = "https://api.sunbird.ai/tasks/nllb_translate"
 token = os.getenv("AUTH_TOKEN")
 headers = {
     "accept": "application/json",
